@@ -57,7 +57,7 @@ public class AviaSoulsTest {
         aviaSouls.add(ticket3);
 
         Ticket[] result = aviaSouls.search("Москва", "Санкт Петербург");
-        Ticket[] expected = {ticket1, ticket3, ticket2}; // упорядоченные по цене
+        Ticket[] expected = {ticket1, ticket3, ticket2};
 
         Assertions.assertArrayEquals(expected, result);
     }
@@ -77,5 +77,55 @@ public class AviaSoulsTest {
 
         Ticket[] actual= aviaSouls.searchAndSortBy("Москва", "Санкт Петербург", comparator);
         Ticket[] expected = {ticket2, ticket1, ticket3};
+    }
+    @Test
+    public void ShouldSearchWithPriceSort1() {
+        AviaSouls aviaSouls = new AviaSouls();
+        Ticket ticket1 = new Ticket("Москва","Санкт Петербург",5_000,21_00,23_00);
+        Ticket ticket2 = new Ticket("Казань","Мурманск", 7_000, 17_00, 18_30);
+        Ticket ticket3 = new Ticket("Нягань","Екатеринбург", 6_000, 11_00, 13_00);
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+
+        Ticket[] result = aviaSouls.search("Москва", "Санкт Петербург");
+        Ticket[] expected = {ticket1};
+
+        Assertions.assertArrayEquals(expected, result);
+    }
+
+    @Test
+    public void ShouldSearchWithPriceSortNo() {
+        AviaSouls aviaSouls = new AviaSouls();
+        Ticket ticket1 = new Ticket("Москва","Санкт Петербург",5_000,21_00,23_00);
+        Ticket ticket2 = new Ticket("Казань","Мурманск", 7_000, 17_00, 18_30);
+        Ticket ticket3 = new Ticket("Нягань","Екатеринбург", 6_000, 11_00, 13_00);
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+
+        Ticket[] result = aviaSouls.search("Казань", "Нягань");
+        Ticket[] expected = {};
+
+        Assertions.assertArrayEquals(expected, result);
+    }
+
+    @Test
+    public void ShouldSearchWithPriceSort2() {
+        AviaSouls aviaSouls = new AviaSouls();
+        Ticket ticket1 = new Ticket("Москва","Санкт Петербург",5_000,21_00,23_00);
+        Ticket ticket2 = new Ticket("Казань","Мурманск", 7_000, 17_00, 18_30);
+        Ticket ticket3 = new Ticket("Москва","Санкт Петербург", 6_000, 11_00, 13_00);
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+
+        Ticket[] result = aviaSouls.search("Москва", "Санкт Петербург");
+        Ticket[] expected = {ticket1,ticket3};
+
+        Assertions.assertArrayEquals(expected, result);
     }
 }
